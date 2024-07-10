@@ -38,7 +38,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: PurpleFlowerGarden/vcpkg
-        ref: master
+        ref: 39748-deploy-iconv-on-bsd
         path: vcpkg
     
     - name: Bootstrap VCPKG

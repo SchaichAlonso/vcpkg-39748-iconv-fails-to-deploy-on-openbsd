@@ -13,10 +13,9 @@ jobs:
       fail-fast: false
       matrix:
         vcpkg_target_triplet: ['x64-openbsd']
-        build_type: ['debug']
         include:
           - vcpkg_target_triplet: 'x64-openbsd'
-            runner: 'OpenBSD7.5'
+            runner: 'OpenBSD-7.5'
   
     permissions:
       contents: read

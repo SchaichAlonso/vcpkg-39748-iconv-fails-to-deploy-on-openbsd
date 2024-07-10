@@ -47,6 +47,7 @@ jobs:
         
     - name: Install glib consumer
       run: |
+        export MAKE=gmake
         ./vcpkg/vcpkg install --debug pango
     
     - name: Archive VCPKG Log Files

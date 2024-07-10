@@ -50,4 +50,4 @@ jobs:
     
     - name: Bootstrap VCPKG
       run: |
-        cmake -E chdir vcpkg sh bootstrap.sh
+        cmake -E chdir vcpkg sh bootstrap-vcpkg.sh

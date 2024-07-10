@@ -25,7 +25,7 @@ jobs:
 
     env:
       VCPKG_TARGET_TRIPLET: ${{ matrix.vcpkg_target_triplet }}
-      # VCPKG_BINARY_SOURCES: 'clear;'
+      VCPKG_BINARY_SOURCES: 'clear;'
     
     steps:
     - name: Install dependencies on OpenBSD
@@ -47,7 +47,7 @@ jobs:
         
     - name: Install glib consumer
       run: |
-        ./vcpkg/vcpkg install pango
+        ./vcpkg/vcpkg install --debug pango
     
     - name: Archive VCPKG Log Files
       if: always()

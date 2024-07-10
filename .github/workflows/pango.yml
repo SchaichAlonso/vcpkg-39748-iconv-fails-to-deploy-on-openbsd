@@ -29,17 +29,10 @@ jobs:
     
     steps:
     - name: Install dependencies on OpenBSD
-      if: ${{ matrix.runner == 'OpenBSD7.5' }}
+      if: ${{ matrix.runner == 'OpenBSD-7.5' }}
       run: |
         pkg_add -Iz bash cmake coreutils curl git ninja zip unzip-6.10-iconv
         pkg_add -Iz autoconf-2.71 autoconf-archive gmake pkgconf python3
-      
-    - name: Install dependencies on FreeBSD
-      if: ${{ matrix.runner == 'OpenBSD7.5' }}
-      run: |
-        pkg install -y bash cmake curl git ninja zip unzip
-        pkg install -y autoconf autoconf-archive gmake pkgconf python
-        pkg install -y automake libtool
     
     - name: Checkout VCPKG
       uses: actions/checkout@v4

@@ -1,0 +1,54 @@
+name: Build Pango
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "*" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        vcpkg_target_triplet: ['x64-openbsd']
+        build_type: ['debug']
+        include:
+          - vcpkg_target_triplet: 'x64-openbsd'
+            runner: 'OpenBSD7.5'
+  
+    permissions:
+      contents: read
+      packages: write
+  
+    runs-on: ${{ matrix.runner }}
+
+    env:
+      VCPKG_TARGET_TRIPLET: ${{ matrix.vcpkg_target_triplet }}
+      VCPKG_BINARY_SOURCES: 'clear;'
+    
+    steps:
+    - name: Install dependencies on OpenBSD
+      if: ${{ matrix.runner == 'OpenBSD7.5' }}
+      run: |
+        pkg_add -Iz bash cmake coreutils curl git ninja zip unzip-6.10-iconv
+        pkg_add -Iz autoconf-2.71 autoconf-archive gmake pkgconf python3
+      
+    - name: Install dependencies on FreeBSD
+      if: ${{ matrix.runner == 'OpenBSD7.5' }}
+      run: |
+        pkg install -y bash cmake curl git ninja zip unzip
+        pkg install -y autoconf autoconf-archive gmake pkgconf python
+        pkg install -y automake libtool
+    
+    - name: Checkout VCPKG
+      uses: actions/checkout@v4
+      with:
+        repository: PurpleFlowerGarden/vcpkg
+        ref: master
+        path: vcpkg
+    
+    - name: Bootstrap VCPKG
+      run: |
+        cmake -E chdir vcpkg sh bootstrap.sh
